@@ -7,3 +7,5 @@ __pycache__/
 instance/
 
 database.db 
+
+db.sqlite3
