@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Football Quiz{% endblock %}
+
+{% block content %}
+    <h1>Football Quiz</h1>
+
+    <h2>{{ question.text }}</h2>
+
+    <form method="post" action="{% url 'quiz:quiz_view' %}">
+        {% csrf_token %}
+        
+        {% for answer in answers %}
+            <input type="radio" name="answer" value="{{ answer.id }}">
+            <label>{{ answer.text }}</label><br>
+        {% endfor }
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
