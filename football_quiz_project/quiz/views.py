@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from .models import Question
 
-# Create your views here.
+def quiz_view(request):
+    question = Question.objects.first()
+    answers = question.answers.all()
+
+    return render(request, 'quiz/question.html', {'question': question, 'answers': answers})
+
+
+
+
