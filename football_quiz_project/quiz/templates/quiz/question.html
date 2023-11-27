@@ -7,14 +7,15 @@
 
     <h2>{{ question.text }}</h2>
 
-    <form method="post" action="{% url 'quiz:quiz_view' %}">
+    <form method="post" action="{% url 'quiz:quiz_question' %}">
         {% csrf_token %}
         
         {% for answer in answers %}
             <input type="radio" name="answer" value="{{ answer.id }}">
             <label>{{ answer.text }}</label><br>
-        {% endfor }
+        {% endfor %}
 
         <button type="submit">Submit</button>
     </form>
+
 {% endblock %}
