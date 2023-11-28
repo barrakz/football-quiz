@@ -14,7 +14,7 @@ class Answer(models.Model):
     is_correct = models.BooleanField(default=False)  # Indicates whether this answer is correct
 
     def __str__(self):
-        return self.text
+            return f'{self.text} - {self.question.text}'
 
 
 class UserProfile(models.Model):
