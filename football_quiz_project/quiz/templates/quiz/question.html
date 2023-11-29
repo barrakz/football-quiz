@@ -18,4 +18,12 @@
         <button type="submit">Submit</button>
     </form>
 
+    {% if is_correct is not None %}
+        {% if is_correct %}
+            <div>Poprawna odpowiedź!</div>
+        {% else %}
+            <div>Niepoprawna odpowiedź.</div>
+        {% endif %}
+    {% endif %}
+    
 {% endblock %}
