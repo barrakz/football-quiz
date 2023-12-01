@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Question, Answer
 
 # View for the quiz - displays a question and its answers.
