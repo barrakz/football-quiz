@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}Football Quiz{% endblock %}
-
 {% block content %}
-    <h1>Football Quiz</h1>
-
+    <h1>Quiz</h1>
     <h2>{{ question.text }}</h2>
 
     <form method="post" action="{% url 'quiz:quiz_question' %}">
         {% csrf_token %}
         
-        {% for answer in answers %}
-            <input type="radio" name="answer" value="{{ answer.id }}">
-            <label>{{ answer.text }}</label><br>
-        {% endfor %}
-
-        <button type="submit">Submit</button>
-    </form>
-
-    {% if is_correct is not None %}
-        {% if is_correct %}
-            <div>Poprawna odpowiedź!</div>
+        {% if is_correct is not None %}
+            {% for answer in answers %}
+                <input type="radio" name="answer" value="{{ answer.id }}" disabled {% if answer.id == user_answer.id %}checked{% endif %}>
+                <label>{{ answer.text }}</label><br>
+            {% endfor %}
+            <button type="submit" name="next">Next</button>
+            <div>{% if is_correct %}Poprawna odpowiedź!{% else %}Niepoprawna odpowiedź.{% endif %}</div>
         {% else %}
-            <div>Niepoprawna odpowiedź.</div>
+            {% for answer in answers %}
+                <input type="radio" name="answer" value="{{ answer.id }}">
+                <label>{{ answer.text }}</label><br>
+            {% endfor %}
+            <button type="submit">Submit</button>
         {% endif %}
-    {% endif %}
-    
+    </form>
 {% endblock %}
