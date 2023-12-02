@@ -6,10 +6,10 @@ def quiz_view(request):
     questions = Question.objects.prefetch_related('answers').all()
 
     if question_index >= len(questions):
-        # Zakończenie quizu
-        request.session['question_index'] = 0  # Reset indeksu na następny raz
-        score = request.session.get('score', 0)  # Pobierz wynik z sesji
-        request.session['score'] = 0  # Resetuj wynik w sesji
+        # End of the quiz
+        request.session['question_index'] = 0  # Reset the index for the next time
+        score = request.session.get('score', 0)  # Retrieve the score from the session
+        request.session['score'] = 0  # Reset the score in the session
         return render(request, 'quiz/finish.html', {'score': score})
 
     question = questions[question_index]
@@ -21,7 +21,7 @@ def quiz_view(request):
             user_answer = question.answers.get(id=user_answer_id)
             is_correct = user_answer.is_correct
             if is_correct:
-                # Zwiększ wynik użytkownika, jeśli odpowiedź jest poprawna
+                # Increase user's score if the answer is correct
                 request.session['score'] = request.session.get('score', 0) + 1
         elif 'next' in request.POST:
             request.session['question_index'] = question_index + 1
@@ -35,5 +35,5 @@ def quiz_view(request):
 
 def finish_view(request):
     score = request.session.get('score', 0)
-    request.session['score'] = 0  # Resetuj wynik w sesji
+    request.session['score'] = 0  # Reset the score in the session
     return render(request, 'quiz/finish.html', {'score': score})
