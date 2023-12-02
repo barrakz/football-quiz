@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Koniec Quizu</h1>
     <p>Dziękujemy za udział w quizie!</p>
+    <p>Twój wynik to: {{ score }} punktów</p>
 
     <!-- Link do ponownego rozpoczęcia quizu lub powrotu na stronę główną -->
     <a href="{% url 'quiz:quiz_question' %}">Rozpocznij Quiz Ponownie</a><br>
