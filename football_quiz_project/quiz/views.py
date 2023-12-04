@@ -1,8 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
 from .models import Question
 
 def home_view(request):
     return render(request, 'quiz/home.html')
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Możesz dodać tutaj logikę logowania po rejestracji
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
 
 def quiz_view(request):
     question_index = request.session.get('question_index', 0)
