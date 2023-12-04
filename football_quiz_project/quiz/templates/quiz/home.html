@@ -4,7 +4,7 @@
     <title>Strona Główna Quizu</title>
 </head>
 <body>
-    <h1>Witaj w Quizie Piłkarskim!</h1>
+    <h1>Witaj w Quizie Piłkarskim {{ user_name }}!</h1>
     <a href="{% url 'login' %}">Logowanie</a> | <a href="{% url 'register' %}">Rejestracja</a>
     <br>
     <!-- Link do quizu -->
