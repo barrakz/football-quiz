@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question
 
+def home_view(request):
+    return render(request, 'quiz/home.html')
+
 def quiz_view(request):
     question_index = request.session.get('question_index', 0)
     questions = Question.objects.prefetch_related('answers').all()
