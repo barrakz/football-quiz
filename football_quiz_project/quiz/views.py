@@ -1,5 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
 from .models import Question
+
+def home_view(request):
+    user_name = request.user.username if request.user.is_authenticated else 'Gość'
+    return render(request, 'quiz/home.html', {'user_name': user_name})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Możesz dodać tutaj logikę logowania po rejestracji
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
 
 def quiz_view(request):
     question_index = request.session.get('question_index', 0)
@@ -10,7 +27,8 @@ def quiz_view(request):
         request.session['question_index'] = 0  # Reset the index for the next time
         score = request.session.get('score', 0)  # Retrieve the score from the session
         request.session['score'] = 0  # Reset the score in the session
-        return render(request, 'quiz/finish.html', {'score': score})
+        user_name = request.user.username if request.user.is_authenticated else 'Gość'
+        return render(request, 'quiz/finish.html', {'score': score, 'user_name': user_name})
 
     question = questions[question_index]
     is_correct = None
@@ -33,7 +51,3 @@ def quiz_view(request):
         'is_correct': is_correct
     })
 
-def finish_view(request):
-    score = request.session.get('score', 0)
-    request.session['score'] = 0  # Reset the score in the session
-    return render(request, 'quiz/finish.html', {'score': score})

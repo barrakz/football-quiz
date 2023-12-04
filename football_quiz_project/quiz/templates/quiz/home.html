@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strona Główna Quizu</title>
+</head>
+<body>
+    <h1>Witaj w Quizie Piłkarskim {{ user_name }}!</h1>
+    <a href="{% url 'login' %}">Logowanie</a> | <a href="{% url 'register' %}">Rejestracja</a>
+    <br>
+    <!-- Link do quizu -->
+    <a href="{% url 'quiz:quiz_question' %}">Rozpocznij Quiz</a>
+</body>
+</html>
