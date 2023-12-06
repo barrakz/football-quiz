@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from .models import Question
+from django.contrib.auth.decorators import login_required
 
 def home_view(request):
     user_name = request.user.username if request.user.is_authenticated else 'Gość'
@@ -17,7 +18,7 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
 
-
+@login_required
 def quiz_view(request):
     question_index = request.session.get('question_index', 0)
     questions = Question.objects.prefetch_related('answers').all()

@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from quiz.views import register
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html', next_page='quiz:home'), name='login'),
     path('register/', register, name='register'),
+    path('logout/', LogoutView.as_view(next_page='quiz:home'), name='logout'),
     path('quiz/', include('quiz.urls')),
 ]
 
